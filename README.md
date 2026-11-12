@@ -4,7 +4,7 @@ Entraîneur de twang vocal dans le navigateur. L'outil mesure la brillance de la
 
 - **Site et mode d'emploi** : `index.html`
 - **Outil** : `app.html`
-- **Version en ligne** (une fois GitHub Pages activé) : `https://brunombo.github.io/twang_perfect/`
+- **Version en ligne** : https://brunombo.github.io/twang_perfect/
 
 Aucune dépendance, aucune étape de construction, aucun serveur applicatif. Le son est analysé sur l'appareil et n'est jamais envoyé.
 
