@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Twang Perfect — l'outil</title>
+<meta name="description" content="Mesurez la brillance de votre twang en temps réel et entraînez-vous à la tenir. Tout se passe dans le navigateur.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%233a5169'/%3E%3Cpath d='M5 23 C11 23 12 9 18 9 S24 12 27 10' fill='none' stroke='%23fdfcf9' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="statusbar" id="bar" role="status" aria-live="polite">
+  <div class="statusbar-inner">
+    <span id="barText">Micro inactif</span>
+    <progress id="barProgress" max="1" value="0" hidden></progress>
+  </div>
+</div>
+
+<main class="wrap">
+  <header class="apphead">
+    <h1>Twang Perfect</h1>
+    <p class="small"><a href="index.html">Mode d'emploi et limites de l'outil</a></p>
+  </header>
+
+  <section class="card" aria-labelledby="hMic">
+    <h2 id="hMic"><span class="step">Étape 1</span>Micro</h2>
+    <div class="row">
+      <button id="btnMic" class="primary">Activer le micro</button>
+      <button id="btnNoise" class="quiet" disabled>Remesurer le bruit ambiant</button>
+    </div>
+    <p class="msg warn" id="micMsg"></p>
+    <div class="gauge">
+      <div class="gauge-head"><span>Niveau du micro</span><span class="val" id="levelVal">—</span></div>
+      <div class="track"><span class="fill level" id="levelFill"></span><span class="tick" id="gateMark" hidden></span></div>
+      <p class="caption">Le trait marque le seuil au-dessus duquel votre voix est analysée.</p>
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="hCal">
+    <h2 id="hCal"><span class="step">Étape 2</span>Calibration sur votre voix</h2>
+    <p>Chantez la même voyelle (« a ») sur la même note, deux fois : d'abord sans twang, puis avec votre twang le plus net. Chaque prise dure 2,5 secondes.</p>
+    <div class="row">
+      <button id="btnNeutral" class="quiet" disabled>Capturer la voix neutre</button>
+      <button id="btnTwang" class="quiet" disabled>Capturer la voix twang</button>
+      <button id="btnCalReset" class="quiet">Effacer la calibration</button>
+    </div>
+    <p class="readout"><span>neutre : <b id="calNeutral">—</b></span><span>twang : <b id="calTwang">—</b></span></p>
+    <p class="msg warn" id="calMsg"></p>
+  </section>
+
+  <section class="card" aria-labelledby="hLive">
+    <h2 id="hLive">En direct</h2>
+    <p class="readout"><span>note : <b id="noteVal">—</b></span></p>
+    <p class="msg warn" id="pitchWarn"></p>
+    <div class="gauge">
+      <div class="gauge-head"><span>Brillance du twang</span><span class="val" id="twangVal">—</span></div>
+      <div class="track">
+        <span class="zone" id="twangTarget"></span>
+        <span class="fill twang" id="twangFill"></span>
+        <span class="tick" style="left:83.333%"></span>
+      </div>
+      <div class="scale"><span>0 % · voix neutre</span><span>trait noir : 100 % · votre twang de référence</span></div>
+    </div>
+    <canvas id="roll" class="tall" role="img" aria-label="Brillance du twang sur les quinze dernières secondes"></canvas>
+    <p class="caption">Les quinze dernières secondes. La zone verte est la cible de l'exercice. La courbe s'interrompt pendant les silences.</p>
+  </section>
+
+  <section class="card" aria-labelledby="hEx">
+    <h2 id="hEx"><span class="step">Étape 3</span>Exercice : tenir la cible</h2>
+    <label for="lo">Bas de la cible : <span class="mono" id="loVal"></span></label>
+    <input type="range" id="lo" min="0" max="115" step="5">
+    <label for="hi">Haut de la cible : <span class="mono" id="hiVal"></span></label>
+    <input type="range" id="hi" min="5" max="120" step="5">
+    <label for="dur">Durée de l'essai : <span class="mono" id="durVal"></span></label>
+    <input type="range" id="dur" min="4" max="20" step="1">
+    <div class="check">
+      <input type="checkbox" id="blind">
+      <label for="blind" style="margin:0">Masquer la jauge et la courbe pendant l'essai. Vous chantez à l'oreille et vous découvrez le résultat à la fin : c'est plus difficile, mais c'est ce qui installe le geste.</label>
+    </div>
+    <div class="row" style="margin-top:1rem">
+      <button id="btnTrial" class="primary" disabled>Lancer un essai</button>
+    </div>
+    <p class="msg warn" id="trialMsg"></p>
+    <div class="result" id="result" hidden>
+      <span class="score" id="resScore"></span>
+      <p class="small" id="resDetail" style="margin:0.4rem 0 0"></p>
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="hSess">
+    <h2 id="hSess">Séance et progression</h2>
+    <canvas id="session" class="short" role="img" aria-label="Brillance du twang depuis le début de la séance"></canvas>
+    <p class="caption">Toute la séance, depuis l'activation du micro.</p>
+    <canvas id="history" class="short" role="img" aria-label="Score des derniers essais"></canvas>
+    <p class="caption">Un bâton par essai. Rouge : avec retour visuel. Bleu : retour masqué.</p>
+    <p class="readout" id="histStats"></p>
+    <div id="histList"></div>
+    <div class="row" style="margin-top:1rem">
+      <button id="btnExport" class="quiet">Exporter mes données (JSON)</button>
+      <button id="btnClear" class="quiet">Effacer l'historique</button>
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="hNasal">
+    <h2 id="hNasal">Twang ou nasalité ?</h2>
+    <h3>Test du nez pincé, mesuré</h3>
+    <p>L'outil enregistre la même voyelle deux fois : nez libre, puis nez pincé. Si le son passe par le nez, le pincer change le spectre. Si le twang est oral, il ne change presque pas.</p>
+    <div class="row"><button id="btnPinch" class="quiet" disabled>Lancer le test du nez pincé</button></div>
+    <p class="msg info" id="pinchResult"></p>
+
+    <h3>Indice continu (facultatif)</h3>
+    <p>Pour suivre la nasalité pendant que vous chantez, donnez un contre-exemple : la même voyelle, volontairement nasale (comme « an »). L'indice situe ensuite votre son entre votre référence orale et cette référence nasale.</p>
+    <div class="row"><button id="btnNasalRef" class="quiet" disabled>Capturer une voix nasale volontaire</button></div>
+    <div class="gauge">
+      <div class="gauge-head"><span>Indice de nasalité</span><span class="val" id="nasalVal">—</span></div>
+      <div class="track"><span class="fill nasal" id="nasalFill"></span></div>
+      <div class="scale"><span>0 % · votre référence orale</span><span>100 % · votre référence nasale</span></div>
+    </div>
+    <p class="msg info" id="nasalMsg"></p>
+    <p class="small" style="margin-top:0.8rem">Un seul micro ne mesure pas le passage de l'air par le nez. L'indice compare des formes de spectre et peut se tromper si vous changez de voyelle ou de note. En cas de doute, le test du nez pincé fait foi.</p>
+  </section>
+
+  <section class="card" aria-labelledby="hAdv">
+    <h2 id="hAdv">Réglages avancés</h2>
+    <details>
+      <summary>Bande de fréquences du twang</summary>
+      <p class="small">La brillance est la part d'énergie située dans cette bande. Les valeurs par défaut (2 500 à 4 000 Hz) sont une hypothèse de travail. Les modifier efface la calibration.</p>
+      <div class="row">
+        <label for="twLo" style="margin:0">de <input type="number" id="twLo" min="1000" max="7000" step="100"> Hz</label>
+        <label for="twHi" style="margin:0">à <input type="number" id="twHi" min="1500" max="8000" step="100"> Hz</label>
+        <button id="btnBand" class="quiet">Appliquer</button>
+      </div>
+      <p class="msg warn" id="bandMsg"></p>
+    </details>
+  </section>
+
+  <footer>
+    <p>Le son est analysé sur votre appareil et n'est jamais envoyé ni enregistré. Seuls vos repères de calibration et vos scores sont conservés, dans ce navigateur.</p>
+    <p><a href="index.html">Mode d'emploi</a> · <a href="https://github.com/brunombo/twang_perfect">Code source</a></p>
+  </footer>
+</main>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

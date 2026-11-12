@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Twang Perfect — entraîner son twang avec un retour visuel</title>
+<meta name="description" content="Un outil web gratuit qui mesure la brillance de votre twang en temps réel, calibré sur votre propre voix. Rien à installer, rien n'est envoyé.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%233a5169'/%3E%3Cpath d='M5 23 C11 23 12 9 18 9 S24 12 27 10' fill='none' stroke='%23fdfcf9' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<main class="wrap">
+
+  <header class="hero">
+    <p class="eyebrow">Chant · retour visuel en temps réel</p>
+    <h1>Twang Perfect</h1>
+    <p class="lede">Voyez votre twang pendant que vous chantez. L'outil mesure la brillance de votre voix, la situe entre votre voix neutre et votre meilleur twang, et vous entraîne à la tenir.</p>
+    <a class="button primary" href="app.html">Ouvrir l'outil</a>
+
+    <figure class="figure">
+      <svg viewBox="0 0 640 240" role="img" aria-label="Schéma : une courbe de brillance monte depuis le niveau neutre, entre dans la zone cible et s'y maintient">
+        <rect x="70" y="20" width="550" height="180" fill="#f3efe6"/>
+        <rect x="70" y="50" width="550" height="60" fill="#5f7250" opacity="0.22"/>
+        <line x1="70" y1="50" x2="620" y2="50" stroke="#d8d2c4"/>
+        <line x1="70" y1="125" x2="620" y2="125" stroke="#d8d2c4" stroke-dasharray="3 4"/>
+        <line x1="70" y1="200" x2="620" y2="200" stroke="#d8d2c4"/>
+        <g font-family="ui-monospace, Menlo, monospace" font-size="12" fill="#5d6470" text-anchor="end">
+          <text x="62" y="54">twang</text><text x="62" y="129">50 %</text><text x="62" y="204">neutre</text>
+        </g>
+        <path d="M70 192 C120 190 150 186 190 150 S250 78 300 72 S360 84 400 76 S460 70 500 78 S560 82 620 74" fill="none" stroke="#b5462f" stroke-width="3" stroke-linecap="round"/>
+        <g font-family="ui-monospace, Menlo, monospace" font-size="12" fill="#5d6470">
+          <text x="70" y="222">il y a 15 s</text><text x="620" y="222" text-anchor="end">maintenant</text>
+          <text x="500" y="42" fill="#5f7250">zone cible</text>
+        </g>
+      </svg>
+      <figcaption>Schéma de principe, sans données réelles : la courbe quitte le niveau neutre, entre dans la zone cible et s'y maintient.</figcaption>
+    </figure>
+  </header>
+
+  <section class="section" aria-labelledby="sMeasure">
+    <h2 id="sMeasure">Ce que l'outil mesure, et avec quelle fiabilité</h2>
+    <div class="measures">
+      <div class="measure">
+        <span class="tag solid">mesure directe</span>
+        <h3>Brillance du twang</h3>
+        <p class="small">La part de l'énergie sonore située entre 2 500 et 4 000 Hz. Elle ne dépend pas du volume. La bande est réglable.</p>
+      </div>
+      <div class="measure">
+        <span class="tag relative">comparaison mesurée</span>
+        <h3>Test du nez pincé</h3>
+        <p class="small">Deux prises de la même voyelle, nez libre puis nez pincé. L'outil chiffre le changement de spectre et le compare à la variation naturelle entre deux prises.</p>
+      </div>
+      <div class="measure">
+        <span class="tag fragile">estimation</span>
+        <h3>Indice de nasalité</h3>
+        <p class="small">La ressemblance de votre son avec un exemple nasal que vous donnez vous-même. Utile comme tendance, pas comme verdict.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="sHow">
+    <h2 id="sHow">Mode d'emploi</h2>
+    <ol class="steps">
+      <li><strong>Activez le micro</strong> et restez silencieux une seconde : l'outil mesure le bruit de la pièce pour savoir quand vous chantez.</li>
+      <li><strong>Capturez votre voix neutre</strong> : un « a » tenu, sans twang, sur une note confortable.</li>
+      <li><strong>Capturez votre twang</strong> : le même « a », sur la même note, avec le twang le plus net possible. Ces deux prises deviennent vos repères 0 % et 100 %.</li>
+      <li><strong>Observez la jauge</strong> en chantant. Elle peut dépasser 100 % si vous faites mieux que votre prise de référence.</li>
+      <li><strong>Lancez un essai</strong> : choisissez une zone cible et une durée, puis tenez votre twang dans la zone. Le score est le temps passé dans la cible, rapporté à la durée de l'essai. Un silence compte comme hors cible.</li>
+      <li><strong>Masquez le retour</strong> quand la cible devient facile : vous chantez à l'oreille et vous découvrez le score à la fin.</li>
+    </ol>
+    <h3>Conseils de mesure</h3>
+    <ul class="plain">
+      <li>Gardez la même voyelle et la même note que pendant la calibration. La brillance change avec la voyelle : un « i » est plus brillant qu'un « ou », twang ou non.</li>
+      <li>Gardez le même appareil et la même distance au micro. Refaites la calibration si vous changez l'un ou l'autre.</li>
+      <li>Un écart de moins de 3 dB entre vos deux prises rend la jauge nerveuse : accentuez la différence.</li>
+    </ul>
+  </section>
+
+  <section class="section" aria-labelledby="sPhone">
+    <h2 id="sPhone">Sur téléphone</h2>
+    <p>Ouvrez l'outil par son adresse <code>https://</code>, dans le navigateur. N'ouvrez pas un fichier téléchargé : l'adresse commence alors par <code>content://</code> ou <code>file://</code>, et le navigateur peut refuser le micro quel que soit le réglage d'autorisation.</p>
+    <p>À la première activation, le navigateur demande l'accès au micro : acceptez. En cas de refus antérieur, touchez le cadenas de la barre d'adresse pour rétablir l'autorisation.</p>
+    <p class="small">Certains téléphones appliquent une réduction de bruit ou un gain automatique que la page ne peut pas désactiver. L'outil vous le signale quand il le détecte.</p>
+  </section>
+
+  <section class="section" aria-labelledby="sLimits">
+    <h2 id="sLimits">Limites à connaître</h2>
+    <ul class="plain">
+      <li><strong>L'outil mesure un son, pas un geste.</strong> Il ne voit pas le larynx. Une brillance élevée peut venir d'un twang, d'une voyelle plus ouverte ou d'un son poussé.</li>
+      <li><strong>Un micro ne mesure pas la nasalité.</strong> Les appareils cliniques utilisent deux micros séparés, un pour la bouche et un pour le nez. Ici, l'indice de nasalité reste une estimation ; le test du nez pincé est plus solide, car il repose sur un fait physique.</li>
+      <li><strong>Les seuils sont empiriques.</strong> La bande 2 500–4 000 Hz et les seuils du test du nez pincé n'ont pas été validés par une étude. Ils sont documentés et réglables dans le code.</li>
+      <li><strong>Ce n'est pas un avis médical ni un professeur.</strong> Une gêne ou un enrouement qui dure relève d'un médecin ORL ou phoniatre.</li>
+    </ul>
+  </section>
+
+  <section class="section" aria-labelledby="sPrivacy">
+    <h2 id="sPrivacy">Vie privée</h2>
+    <p>Le son est analysé sur votre appareil. Il n'est ni enregistré ni envoyé : la page ne fait aucune requête réseau après son chargement. Vos repères de calibration et vos scores restent dans le stockage local de votre navigateur ; vous pouvez les exporter ou les effacer depuis l'outil.</p>
+  </section>
+
+  <section class="section" aria-labelledby="sSources">
+    <h2 id="sSources">Sources</h2>
+    <ul class="plain sources">
+      <li>Damien Silvert, Dalida Institute — « Qu'est-ce que le twang ? » (4 juillet 2025, modifié le 4 septembre 2025) — <a href="https://www.dalidainstitute.com/qu-est-ce-que-le-twang/">dalidainstitute.com/qu-est-ce-que-le-twang/</a> — vérifiée le 2026-11-12. Source secondaire, d'un organisme de formation : elle donne la bande 2 500–4 000 Hz et le test du nez pincé, sans citer d'étude.</li>
+      <li>W. Styler et R. Scarborough — « Surveying the nasal peak: A1 and P0 in nasal and nasalized vowels » (support de communication, 2014 d'après l'adresse) — <a href="https://wstyler.ucsd.edu/files/stylerASA2014.pdf">wstyler.ucsd.edu/files/stylerASA2014.pdf</a> — vérifiée le 2026-11-12. Elle indique que l'effet acoustique de la nasalité varie selon la voyelle, le locuteur et la langue.</li>
+      <li>MDN Web Docs — « MediaDevices: getUserMedia() method » — <a href="https://developer.mozilla.org/docs/Web/API/MediaDevices/getUserMedia">developer.mozilla.org/docs/Web/API/MediaDevices/getUserMedia</a> — vérifiée le 2026-11-12. Contexte sécurisé exigé, liste des erreurs.</li>
+      <li>J. Sundberg et M. Thalén — « What is "Twang"? », Journal of Voice (2010) — <a href="https://pubmed.ncbi.nlm.nih.gov/20083379/">pubmed.ncbi.nlm.nih.gov/20083379/</a> — extrait : existence et titre confirmés par un résultat de recherche, contenu non lu. Aucun réglage de l'outil ne s'appuie sur ses résultats.</li>
+      <li>M. Y. Chen — « Acoustic correlates of English and French nasalized vowels » (1997) — <a href="https://pubmed.ncbi.nlm.nih.gov/9348695/">pubmed.ncbi.nlm.nih.gov/9348695/</a> — extrait : existence et titre confirmés par un résultat de recherche, contenu non lu.</li>
+    </ul>
+  </section>
+
+  <footer>
+    <p><a href="app.html">Ouvrir l'outil</a> · <a href="https://github.com/brunombo/twang_perfect">Code source et documentation technique</a></p>
+  </footer>
+</main>
+</body>
+</html>
